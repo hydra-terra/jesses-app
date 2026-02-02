@@ -3,6 +3,8 @@ class JessesApp {
     constructor() {
         this.currentModule = null;
         this.highContrast = false;
+        this.breathingInterval = null;
+        this.patternAnimationId = null;
         this.init();
     }
 
@@ -28,6 +30,9 @@ class JessesApp {
         const contentArea = document.getElementById('content-area');
         document.getElementById('back-btn').classList.remove('hidden');
         this.currentModule = moduleName;
+        
+        // Clear any running animations
+        this.cleanupAnimations();
 
         switch(moduleName) {
             case 'learning':
@@ -85,6 +90,9 @@ class JessesApp {
     }
 
     initLearningModule() {
+        // Reset sub-activity flag when entering module menu
+        this.inSubActivity = false;
+        
         document.querySelectorAll('.activity-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const activity = e.currentTarget.dataset.activity;
@@ -95,6 +103,8 @@ class JessesApp {
 
     loadLearningActivity(activity) {
         const contentArea = document.getElementById('content-area');
+        // Track that we're in a sub-activity
+        this.inSubActivity = true;
         
         switch(activity) {
             case 'colors':
@@ -223,6 +233,9 @@ class JessesApp {
         const emojis = ['🌟', '🎈', '🎨', '🎁', '⭐'];
         const emoji = emojis[Math.floor(Math.random() * emojis.length)];
         
+        // Store the correct answer for later use
+        this.currentNumberAnswer = number;
+        
         return `
             <div style="text-align: center;">
                 <p style="font-size: 1.5rem; margin-bottom: 20px;">How many ${emoji} do you see?</p>
@@ -241,7 +254,7 @@ class JessesApp {
     }
 
     initNumberActivity() {
-        const correctAnswer = document.querySelectorAll('[style*="font-size: 4rem"]')[0].textContent.trim().length;
+        const correctAnswer = this.currentNumberAnswer;
         
         document.querySelectorAll('.number-choice').forEach(choice => {
             choice.addEventListener('click', (e) => {
@@ -319,6 +332,9 @@ class JessesApp {
     }
 
     initCalmingModule() {
+        // Reset sub-activity flag when entering module menu
+        this.inSubActivity = false;
+        
         document.querySelectorAll('.activity-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const activity = e.currentTarget.dataset.activity;
@@ -329,6 +345,8 @@ class JessesApp {
 
     loadCalmingActivity(activity) {
         const contentArea = document.getElementById('content-area');
+        // Track that we're in a sub-activity
+        this.inSubActivity = true;
         
         switch(activity) {
             case 'breathing':
@@ -397,10 +415,15 @@ class JessesApp {
     }
 
     startBreathingExercise() {
+        // Clear any existing interval
+        if (this.breathingInterval) {
+            clearInterval(this.breathingInterval);
+        }
+        
         let phase = 0;
         const text = document.getElementById('breathing-text');
         
-        setInterval(() => {
+        this.breathingInterval = setInterval(() => {
             phase = (phase + 1) % 4;
             switch(phase) {
                 case 0:
@@ -456,6 +479,11 @@ class JessesApp {
         const canvas = document.getElementById('pattern-canvas');
         if (!canvas) return;
         
+        // Clear any existing animation
+        if (this.patternAnimationId) {
+            cancelAnimationFrame(this.patternAnimationId);
+        }
+        
         const ctx = canvas.getContext('2d');
         let time = 0;
         
@@ -474,7 +502,7 @@ class JessesApp {
             }
             
             time += 0.5;
-            requestAnimationFrame(animate);
+            this.patternAnimationId = requestAnimationFrame(animate);
         };
         
         animate();
@@ -516,6 +544,9 @@ class JessesApp {
     }
 
     initAdventuresModule() {
+        // Reset sub-activity flag when entering module menu
+        this.inSubActivity = false;
+        
         document.querySelectorAll('.activity-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const story = e.currentTarget.dataset.story;
@@ -525,6 +556,9 @@ class JessesApp {
     }
 
     loadStory(storyType) {
+        // Track that we're in a sub-activity
+        this.inSubActivity = true;
+        
         const stories = {
             forest: {
                 title: '🌳 Forest Adventure',
@@ -642,6 +676,9 @@ class JessesApp {
     }
 
     initHygieneModule() {
+        // Reset sub-activity flag when entering module menu
+        this.inSubActivity = false;
+        
         document.querySelectorAll('.activity-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const routine = e.currentTarget.dataset.routine;
@@ -651,6 +688,9 @@ class JessesApp {
     }
 
     loadHygieneRoutine(routineType) {
+        // Track that we're in a sub-activity
+        this.inSubActivity = true;
+        
         const routines = {
             handwashing: {
                 title: '🧼 How to Wash Your Hands',
@@ -754,6 +794,9 @@ class JessesApp {
     }
 
     initRespectModule() {
+        // Reset sub-activity flag when entering module menu
+        this.inSubActivity = false;
+        
         document.querySelectorAll('.activity-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const activity = e.currentTarget.dataset.activity;
@@ -764,6 +807,8 @@ class JessesApp {
 
     loadRespectActivity(activity) {
         const contentArea = document.getElementById('content-area');
+        // Track that we're in a sub-activity
+        this.inSubActivity = true;
         
         switch(activity) {
             case 'emotions':
@@ -934,12 +979,17 @@ class JessesApp {
     goBack() {
         const contentArea = document.getElementById('content-area');
         
-        if (this.currentModule) {
-            // Go back to module menu
+        // Clear any running animations
+        this.cleanupAnimations();
+        
+        if (this.inSubActivity) {
+            // Go back to module menu from sub-activity
+            this.inSubActivity = false;
             contentArea.innerHTML = '';
             this.loadModule(this.currentModule);
-        } else {
-            // Go back to main menu
+        } else if (this.currentModule) {
+            // Go back to main menu from module menu
+            this.currentModule = null;
             contentArea.innerHTML = `
                 <div class="welcome-screen">
                     <h2>Welcome! 👋</h2>
@@ -952,6 +1002,20 @@ class JessesApp {
                 </div>
             `;
             document.getElementById('back-btn').classList.add('hidden');
+        }
+    }
+
+    cleanupAnimations() {
+        // Clear breathing exercise interval
+        if (this.breathingInterval) {
+            clearInterval(this.breathingInterval);
+            this.breathingInterval = null;
+        }
+        
+        // Cancel pattern animation
+        if (this.patternAnimationId) {
+            cancelAnimationFrame(this.patternAnimationId);
+            this.patternAnimationId = null;
         }
     }
 
