@@ -1,0 +1,453 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.app-container {
+    max-width: 1200px;
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.app-header {
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.app-header h1 {
+    color: white;
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.accessibility-btn {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.accessibility-btn:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* Navigation */
+.main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.nav-btn {
+    flex: 1 1 150px;
+    max-width: 200px;
+    padding: 20px;
+    font-size: 1.2rem;
+    border: 3px solid transparent;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:active {
+    transform: translateY(-2px);
+}
+
+.nav-btn[data-module="learning"] {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.nav-btn[data-module="calming"] {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.nav-btn[data-module="adventures"] {
+    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+    color: white;
+}
+
+.nav-btn[data-module="hygiene"] {
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+.nav-btn[data-module="respect"] {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fd79a8 100%);
+}
+
+/* Content Area */
+.content-area {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.welcome-screen {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.welcome-screen h2 {
+    font-size: 2.5rem;
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.welcome-screen p {
+    font-size: 1.5rem;
+    color: #555;
+}
+
+.welcome-animations {
+    margin-top: 30px;
+    font-size: 3rem;
+}
+
+.star {
+    display: inline-block;
+    margin: 0 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.star:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.star:nth-child(3) {
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Activity Screens */
+.activity-screen {
+    animation: fadeIn 0.5s;
+}
+
+.activity-screen h2 {
+    color: #667eea;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.activity-card {
+    background: white;
+    border: 3px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.activity-card:hover {
+    transform: translateY(-5px);
+    border-color: #667eea;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.activity-card .icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.activity-card h3 {
+    color: #333;
+    font-size: 1.2rem;
+}
+
+/* Interactive Elements */
+.interactive-element {
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 1.5rem;
+    border: 3px solid #667eea;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.interactive-element:hover {
+    background: #667eea;
+    color: white;
+    transform: scale(1.05);
+}
+
+.interactive-element.correct {
+    background: #00d2ff;
+    border-color: #00d2ff;
+    color: white;
+}
+
+.interactive-element.incorrect {
+    background: #ffb3b3;
+    border-color: #ff6b6b;
+}
+
+/* Back Button */
+.back-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    padding: 15px 30px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    z-index: 100;
+}
+
+.back-btn:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Breathing Exercise */
+.breathing-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 50px auto;
+    animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.5);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(1.5);
+    }
+}
+
+.breathing-text {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #667eea;
+    font-weight: bold;
+    animation: breatheText 8s ease-in-out infinite;
+}
+
+@keyframes breatheText {
+    0%, 50%, 100% {
+        content: "Breathe In...";
+    }
+    25%, 75% {
+        content: "Breathe Out...";
+    }
+}
+
+/* High Contrast Mode */
+body.high-contrast {
+    background: #000;
+}
+
+body.high-contrast .app-container {
+    background: #000;
+    border: 3px solid #fff;
+}
+
+body.high-contrast .app-header {
+    background: #000;
+    border-bottom: 3px solid #fff;
+}
+
+body.high-contrast .app-header h1 {
+    color: #fff;
+}
+
+body.high-contrast .nav-btn {
+    background: #000;
+    color: #fff;
+    border: 3px solid #fff;
+}
+
+body.high-contrast .content-area {
+    background: #000;
+    color: #fff;
+}
+
+body.high-contrast .activity-card {
+    background: #000;
+    border-color: #fff;
+    color: #fff;
+}
+
+body.high-contrast h2, 
+body.high-contrast h3,
+body.high-contrast p {
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .app-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .accessibility-btn {
+        position: static;
+        transform: none;
+        margin-top: 10px;
+    }
+
+    .nav-btn {
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    .activity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .back-btn {
+        bottom: 15px;
+        left: 15px;
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Success Animation */
+.success-message {
+    background: #00d2ff;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 20px 0;
+    animation: pulse 0.5s;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.step-container {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px 0;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin: 15px 0;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
+
+.step-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #667eea;
+    min-width: 50px;
+    text-align: center;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.step-icon {
+    font-size: 3rem;
+}
