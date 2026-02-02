@@ -298,16 +298,6 @@ body {
     font-size: 1.5rem;
     color: #667eea;
     font-weight: bold;
-    animation: breatheText 8s ease-in-out infinite;
-}
-
-@keyframes breatheText {
-    0%, 50%, 100% {
-        content: "Breathe In...";
-    }
-    25%, 75% {
-        content: "Breathe Out...";
-    }
 }
 
 /* High Contrast Mode */

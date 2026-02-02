@@ -369,10 +369,12 @@ class JessesApp {
                     <div class="activity-screen" style="text-align: center;">
                         <h2>🌈 Calming Colors</h2>
                         <div id="color-canvas" style="width: 100%; height: 400px; border-radius: 15px; margin: 20px 0;"></div>
-                        <button class="interactive-element" onclick="app.changeColor()">Change Color</button>
+                        <button class="interactive-element" id="change-color-btn">Change Color</button>
                     </div>
                 `;
                 this.startColorTherapy();
+                // Add event listener for change color button
+                document.getElementById('change-color-btn').addEventListener('click', () => this.changeColor());
                 break;
             case 'sounds':
                 contentArea.innerHTML = `
@@ -380,19 +382,19 @@ class JessesApp {
                         <h2>🎵 Peaceful Sounds</h2>
                         <p style="font-size: 1.3rem; margin: 20px 0;">Choose a calming sound</p>
                         <div class="activity-grid" style="max-width: 600px; margin: 0 auto;">
-                            <div class="activity-card" onclick="app.playSound('ocean')">
+                            <div class="activity-card sound-card" data-sound="ocean">
                                 <div class="icon">🌊</div>
                                 <h3>Ocean Waves</h3>
                             </div>
-                            <div class="activity-card" onclick="app.playSound('rain')">
+                            <div class="activity-card sound-card" data-sound="rain">
                                 <div class="icon">🌧️</div>
                                 <h3>Gentle Rain</h3>
                             </div>
-                            <div class="activity-card" onclick="app.playSound('birds')">
+                            <div class="activity-card sound-card" data-sound="birds">
                                 <div class="icon">🐦</div>
                                 <h3>Birds Singing</h3>
                             </div>
-                            <div class="activity-card" onclick="app.playSound('wind')">
+                            <div class="activity-card sound-card" data-sound="wind">
                                 <div class="icon">🍃</div>
                                 <h3>Soft Wind</h3>
                             </div>
@@ -400,16 +402,25 @@ class JessesApp {
                         <p style="margin-top: 20px; font-size: 1.2rem; color: #667eea;">Close your eyes and imagine...</p>
                     </div>
                 `;
+                // Add event listeners for sound cards
+                document.querySelectorAll('.sound-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const sound = e.currentTarget.dataset.sound;
+                        this.playSound(sound);
+                    });
+                });
                 break;
             case 'patterns':
                 contentArea.innerHTML = `
                     <div class="activity-screen" style="text-align: center;">
                         <h2>✨ Relaxing Patterns</h2>
                         <canvas id="pattern-canvas" width="600" height="400" style="max-width: 100%; border-radius: 15px; margin: 20px 0; background: white;"></canvas>
-                        <button class="interactive-element" onclick="app.changePattern()">New Pattern</button>
+                        <button class="interactive-element" id="change-pattern-btn">New Pattern</button>
                     </div>
                 `;
                 this.startPatternAnimation();
+                // Add event listener for change pattern button
+                document.getElementById('change-pattern-btn').addEventListener('click', () => this.changePattern());
                 break;
         }
     }
@@ -612,7 +623,7 @@ class JessesApp {
                     </p>
                     <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                         ${story.choices.map((choice, index) => `
-                            <button class="interactive-element" onclick="app.showStoryResult('${choice.result}')">
+                            <button class="interactive-element story-choice" data-result="${choice.result}">
                                 ${choice.text}
                             </button>
                         `).join('')}
@@ -621,6 +632,14 @@ class JessesApp {
                 </div>
             </div>
         `;
+        
+        // Add event listeners for story choices
+        document.querySelectorAll('.story-choice').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const result = e.currentTarget.dataset.result;
+                this.showStoryResult(result);
+            });
+        });
     }
 
     getStoryEmoji(storyType) {
@@ -849,10 +868,10 @@ class JessesApp {
                             </p>
                             <div style="text-align: center; font-size: 4rem; margin: 30px 0;">🧸</div>
                             <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                                <button class="interactive-element" onclick="app.showSharingResult('share')">
+                                <button class="interactive-element sharing-choice" data-choice="share">
                                     Share the toy 🤝
                                 </button>
-                                <button class="interactive-element" onclick="app.showSharingResult('take-turns')">
+                                <button class="interactive-element sharing-choice" data-choice="take-turns">
                                     Take turns ⏰
                                 </button>
                             </div>
@@ -860,6 +879,13 @@ class JessesApp {
                         </div>
                     </div>
                 `;
+                // Add event listeners for sharing choices
+                document.querySelectorAll('.sharing-choice').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const choice = e.currentTarget.dataset.choice;
+                        this.showSharingResult(choice);
+                    });
+                });
                 break;
             case 'gratitude':
                 contentArea.innerHTML = `
