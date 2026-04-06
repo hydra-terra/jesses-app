@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jesse's Interactive Learning App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>🌟 Jesse's Learning Adventure 🌟</h1>
+            <button id="accessibility-btn" class="accessibility-btn" aria-label="Toggle High Contrast">
+                👁️ Contrast
+            </button>
+        </header>
+
+        <!-- Main Navigation -->
+        <nav class="main-nav" id="main-nav">
+            <button class="nav-btn" data-module="learning" aria-label="Interactive Learning">
+                📚 Learning
+            </button>
+            <button class="nav-btn" data-module="calming" aria-label="Calming & Sensory">
+                🌈 Calming
+            </button>
+            <button class="nav-btn" data-module="adventures" aria-label="Adventures">
+                🎒 Adventures
+            </button>
+            <button class="nav-btn" data-module="hygiene" aria-label="Hygiene Practices">
+                🧼 Hygiene
+            </button>
+            <button class="nav-btn" data-module="respect" aria-label="Respect & Appreciation">
+                💖 Kindness
+            </button>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="content-area" id="content-area">
+            <div class="welcome-screen">
+                <h2>Welcome! 👋</h2>
+                <p>Choose an activity to begin your adventure!</p>
+                <div class="welcome-animations">
+                    <span class="star">⭐</span>
+                    <span class="star">✨</span>
+                    <span class="star">🌟</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Back Button -->
+        <button id="back-btn" class="back-btn hidden" aria-label="Go Back">← Back</button>
+
+        <!-- Audio Feedback -->
+        <audio id="click-sound" preload="auto"></audio>
+        <audio id="success-sound" preload="auto"></audio>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
